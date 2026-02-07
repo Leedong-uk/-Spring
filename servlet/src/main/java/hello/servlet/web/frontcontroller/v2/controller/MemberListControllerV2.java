@@ -12,7 +12,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-public class MemberListControllerV2 implements ControllerV2 {
+public class  MemberListControllerV2 implements ControllerV2 {
     private MemberRepository memberRepository = MemberRepository.getInstance();
 
     @Override
