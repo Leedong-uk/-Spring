@@ -1,5 +1,11 @@
 <!-- Spring Study Repository README (HTML Version) -->
 <h1 align="center">🌱 Spring Study Repository</h1>
+<h2 align="center">
+  📖 모든 설명은 
+  <a href="https://le2donguk.tistory.com/category/%EC%8A%A4%ED%94%84%EB%A7%81" target="_blank">
+  👉 블로그를 참고하세요!!! 👈
+  </a>
+</h2>
 
 <p align="center">
   <b>김영한님 강의 기반 Spring 학습 정리 레포지토리</b><br/>
