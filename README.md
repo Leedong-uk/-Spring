@@ -47,20 +47,6 @@
 
 <hr/>
 
-<h2>🗂 Project Structure</h2>
-
-<pre>
-📦 spring-study
- ┣ 📂 core
- ┣ 📂 mvc
- ┣ 📂 boot
- ┣ 📂 jpa
- ┣ 📂 security
- ┗ 📂 test
-</pre>
-
-<hr/>
-
 <h2>🚀 How To Run</h2>
 
 <pre>
@@ -70,17 +56,6 @@ git clone https://github.com/your-id/your-repo.git
 # run
 ./gradlew bootRun
 </pre>
-
-<hr/>
-
-<h2>🧠 Key Learning Notes</h2>
-
-<ul>
-  <li>✔ 스프링은 객체 지향 설계를 지원하는 프레임워크</li>
-  <li>✔ DI는 "의존관계를 외부에서 주입"</li>
-  <li>✔ 스프링 컨테이너가 객체 생명주기 관리</li>
-  <li>✔ 테스트 코드가 곧 설계 검증</li>
-</ul>
 
 <hr/>
 
