@@ -1,5 +1,11 @@
 <!-- Spring Study Repository README (HTML Version) -->
 <h1 align="center">🌱 Spring Study Repository</h1>
+<h2 align="center">
+  📖 모든 설명은 
+  <a href="https://le2donguk.tistory.com/category/%EC%8A%A4%ED%94%84%EB%A7%81" target="_blank">
+  👉 블로그를 참고하세요!!! 👈
+  </a>
+</h2>
 
 <p align="center">
   <b>김영한님 강의 기반 Spring 학습 정리 레포지토리</b><br/>
@@ -41,20 +47,6 @@
 
 <hr/>
 
-<h2>🗂 Project Structure</h2>
-
-<pre>
-📦 spring-study
- ┣ 📂 core
- ┣ 📂 mvc
- ┣ 📂 boot
- ┣ 📂 jpa
- ┣ 📂 security
- ┗ 📂 test
-</pre>
-
-<hr/>
-
 <h2>🚀 How To Run</h2>
 
 <pre>
@@ -64,17 +56,6 @@ git clone https://github.com/your-id/your-repo.git
 # run
 ./gradlew bootRun
 </pre>
-
-<hr/>
-
-<h2>🧠 Key Learning Notes</h2>
-
-<ul>
-  <li>✔ 스프링은 객체 지향 설계를 지원하는 프레임워크</li>
-  <li>✔ DI는 "의존관계를 외부에서 주입"</li>
-  <li>✔ 스프링 컨테이너가 객체 생명주기 관리</li>
-  <li>✔ 테스트 코드가 곧 설계 검증</li>
-</ul>
 
 <hr/>
 
