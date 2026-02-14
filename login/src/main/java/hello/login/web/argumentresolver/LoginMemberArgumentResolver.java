@@ -8,6 +8,7 @@ import org.springframework.lang.Nullable;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.support.WebDataBinderFactory;
 import org.springframework.web.context.request.NativeWebRequest;
+import org.springframework.web.method.annotation.ModelFactory;
 import org.springframework.web.method.support.HandlerMethodArgumentResolver;
 import org.springframework.web.method.support.ModelAndViewContainer;
 
@@ -42,6 +43,13 @@ public class LoginMemberArgumentResolver implements HandlerMethodArgumentResolve
             return null;
         }
 
-        return session.getAttribute(SessionConst.LOGIN_MEMBER);
+        Member loginMember = (Member)session.getAttribute(SessionConst.LOGIN_MEMBER);
+
+        if (loginMember != null && mavContainer != null) {
+            String name = ModelFactory.getNameForParameter(parameter);
+            mavContainer.addAttribute(name, loginMember);
+        }
+
+        return loginMember;
     }
 }

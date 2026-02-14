@@ -100,14 +100,16 @@ public class HomeController {
     }
 
     @GetMapping("/")
-    public String homeLoginV3ArgumentResolver(@Login Member loginMember, Model model) {
+    public String homeLoginV3ArgumentResolver(@Login Member member) {
 
-        if (loginMember == null) {
+        if (member == null) {
             return "home";
         }
 
         //세션이 있으면 로그인 유지
-        model.addAttribute("member", loginMember);
+        log.info("member 객체 바인딩 확인 ={}", member);
+//        log.info("model에 자동 바인딩 확인={}", model.getAttribute("member"));
+
         return "loginHome";
     }
 
