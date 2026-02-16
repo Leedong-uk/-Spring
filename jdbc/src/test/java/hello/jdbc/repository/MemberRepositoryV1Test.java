@@ -26,12 +26,8 @@ class MemberRepositoryV1Test {
 //        DriverManagerDataSource dataSource = new DriverManagerDataSource(URL, USERNAME, PASSWORD);
 
         //커넥션풀링
-        HikariDataSource dataSource = new HikariDataSource();
-        dataSource.setJdbcUrl(URL);
-        dataSource.setUsername(USERNAME);
-        dataSource.setPassword(PASSWORD);
 
-        repository = new MemberRepositoryV1(dataSource);
+
     }
 
     @Test
