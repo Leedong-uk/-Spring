@@ -66,10 +66,10 @@ public class ItemController {
     }
 
 
-    @GetMapping("/attach/{itemId}")
-    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) {
-        Item item = itemRepository.findById(itemId);
-        String storeFileName = item.getAttachFile().getStoreFileName();
-        item.getAttachFile().getUploadFileName();
-    }
+//    @GetMapping("/attach/{itemId}")
+//    public ResponseEntity<Resource> downloadAttach(@PathVariable Long itemId) {
+//        Item item = itemRepository.findById(itemId);
+//        String storeFileName = item.getAttachFile().getStoreFileName();
+//        item.getAttachFile().getUploadFileName();
+//    }
 }
