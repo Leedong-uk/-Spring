@@ -7,7 +7,7 @@ import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
-public interface SpringDataJpaItemRepository extends JpaRepository<Item, Long> {
+public interface   SpringDataJpaItemRepository extends JpaRepository<Item, Long> {
 
     List<Item> findByItemNameLike(String itemName);
 
