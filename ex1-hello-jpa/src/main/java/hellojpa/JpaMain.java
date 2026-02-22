@@ -8,10 +8,10 @@ public class JpaMain {
         EntityManager em = emf.createEntityManager();
 
         EntityTransaction tx = em.getTransaction();
-
         tx.begin();
-        try {
 
+        try {
+            tx.commit();
         } catch (Exception e) {
             tx.rollback();
         }finally {
