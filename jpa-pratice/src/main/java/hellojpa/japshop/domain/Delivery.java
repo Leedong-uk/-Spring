@@ -1,8 +1,12 @@
 package hellojpa.japshop.domain;
 
 import jakarta.persistence.*;
+import lombok.Getter;
+import lombok.Setter;
 
 @Entity
+@Getter
+@Setter
 public class Delivery extends BaseEntity {
 
     @Id
@@ -13,9 +17,8 @@ public class Delivery extends BaseEntity {
     @OneToOne(mappedBy = "delivery", fetch = FetchType.LAZY)
     private Order order;
 
-    private String city;
-    private String street;
-    private String zipcode;
+    @Embedded
+    private Address address;
 
     @Enumerated
     private DeliveryStatus status;
