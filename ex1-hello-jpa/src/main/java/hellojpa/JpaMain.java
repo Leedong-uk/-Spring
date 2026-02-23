@@ -1,6 +1,12 @@
 package hellojpa;
 
+import hellojpa.jpabook.jpashop.domain.Member;
+import hellojpa.jpabook.jpashop.domain.Order;
+import hellojpa.jpabook.jpashop.domain.OrderItem;
+import hellojpa.jpabook.jpashop.domain.Team;
 import jakarta.persistence.*;
+
+import java.util.List;
 
 public class JpaMain {
     public static void main(String[] args) {
@@ -11,6 +17,7 @@ public class JpaMain {
         tx.begin();
 
         try {
+
             tx.commit();
         } catch (Exception e) {
             tx.rollback();
