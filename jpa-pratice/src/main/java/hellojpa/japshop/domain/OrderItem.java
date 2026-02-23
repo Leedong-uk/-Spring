@@ -1,11 +1,12 @@
 package hellojpa.japshop.domain;
 
+import hellojpa.japshop.domain.item.Item;
 import jakarta.persistence.*;
 import lombok.Setter;
 
 @Entity
 @Setter
-public class OrderItem {
+public class OrderItem extends BaseEntity  {
 
     @Id
     @GeneratedValue
