@@ -1,10 +1,10 @@
 package jpabook.jpashop.repository;
 
-import jakarta.persistence.EntityManager;
 import jpabook.jpashop.domain.item.Item;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import jakarta.persistence.EntityManager;
 import java.util.List;
 
 @Repository
@@ -16,19 +16,16 @@ public class ItemRepository {
     public void save(Item item) {
         if (item.getId() == null) {
             em.persist(item);
-        }else{
+        } else {
             em.merge(item);
         }
     }
 
-    public Item findOne(Long id ) {
+    public Item findOne(Long id) {
         return em.find(Item.class, id);
     }
 
     public List<Item> findAll() {
-        return em.createQuery("select i from Item i", Item.class)
-                .getResultList();
+        return em.createQuery("select i from Item i",Item.class).getResultList();
     }
-
-
 }

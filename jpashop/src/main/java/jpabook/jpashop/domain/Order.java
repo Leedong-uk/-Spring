@@ -1,41 +1,37 @@
 package jpabook.jpashop.domain;
 
-import jakarta.persistence.*;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import jakarta.persistence.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name="orders")
-@Getter
-@Setter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@Table(name = "orders")
+@Getter @Setter
 public class Order {
-    @Id
-    @GeneratedValue
-    @Column(name="order_id")
+
+    @Id @GeneratedValue
+    @Column(name = "order_id")
     private Long id;
 
-    @ManyToOne
-    @JoinColumn(name="member_id")
-    private Member member;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member; //주문 회원
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name="delivery_id")
-    private Delivery delivery;
+    @JoinColumn(name = "delivery_id")
+    private Delivery delivery; //배송정보
 
-    private LocalDateTime orderDate;
+    private LocalDateTime orderDate; //주문시간
 
     @Enumerated(EnumType.STRING)
-    private OrderStatus status; // 주문 상태 [ORDER,CANCLE]
+    private OrderStatus status; //주문상태 [ORDER, CANCEL]
 
     //==연관관계 메서드==//
     public void setMember(Member member) {
@@ -53,8 +49,8 @@ public class Order {
         delivery.setOrder(this);
     }
 
-    //== 생성 관계 매서드 ==//
-    public static Order createOrder(Member member,Delivery delivery,OrderItem... orderItems) {
+    //==생성 메서드==//
+    public static Order createOrder(Member member, Delivery delivery, OrderItem... orderItems) {
         Order order = new Order();
         order.setMember(member);
         order.setDelivery(delivery);
@@ -66,11 +62,8 @@ public class Order {
         return order;
     }
 
-    //== 비지니스 로직 ==//
-    /**
-     * 주문 취소
-     */
-
+    //==비즈니스 로직==//
+    /** 주문 취소 */
     public void cancel() {
         if (delivery.getStatus() == DeliveryStatus.COMP) {
             throw new IllegalStateException("이미 배송완료된 상품은 취소가 불가능합니다.");
@@ -80,13 +73,10 @@ public class Order {
         for (OrderItem orderItem : orderItems) {
             orderItem.cancel();
         }
-
     }
 
     //==조회 로직==//
-    /**
-     * 전체 주문 가격 조회
-     */
+    /** 전체 주문 가격 조회 */
     public int getTotalPrice() {
         int totalPrice = 0;
         for (OrderItem orderItem : orderItems) {
@@ -94,6 +84,5 @@ public class Order {
         }
         return totalPrice;
     }
-
 
 }

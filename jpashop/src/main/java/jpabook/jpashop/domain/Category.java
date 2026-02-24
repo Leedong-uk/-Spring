@@ -1,10 +1,11 @@
 package jpabook.jpashop.domain;
 
-import jakarta.persistence.*;
-import jpabook.jpashop.domain.item.Item;
 import lombok.Getter;
 import lombok.Setter;
 
+import jpabook.jpashop.domain.item.Item;
+
+import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,8 +13,7 @@ import java.util.List;
 @Getter @Setter
 public class Category {
 
-    @Id
-    @GeneratedValue
+    @Id @GeneratedValue
     @Column(name = "category_id")
     private Long id;
 
@@ -26,7 +26,7 @@ public class Category {
     private List<Item> items = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="parent_id")
+    @JoinColumn(name = "parent_id")
     private Category parent;
 
     @OneToMany(mappedBy = "parent")
@@ -37,6 +37,5 @@ public class Category {
         this.child.add(child);
         child.setParent(this);
     }
-
 
 }
