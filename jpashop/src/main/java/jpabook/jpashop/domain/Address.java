@@ -1,18 +1,17 @@
 package jpabook.jpashop.domain;
 
-import lombok.Getter;
-
 import jakarta.persistence.Embeddable;
+import lombok.Getter;
+import lombok.Setter;
 
 @Embeddable
 @Getter
 public class Address {
-
     private String city;
     private String street;
     private String zipcode;
 
-    protected Address() {
+    public Address() {
     }
 
     public Address(String city, String street, String zipcode) {
