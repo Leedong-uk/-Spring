@@ -75,9 +75,13 @@ git clone https://github.com/your-id/your-repo.git
 <h2>📖 Reference</h2>
 
 <ul>
-  <li>김영한 — 스프링 핵심 원리</li>
-  <li>김영한 — 스프링 MVC</li>
-  <li>김영한 — 스프링 부트 & JPA</li>
+  <li>김영한 — 스프링 MVC 1편,2편</li>
+  <li>김영한 — 스프링 DB 1편,2편</li>
+  <li>김영한 — ORM JPA 기본 </li>
+  <li>김영한 — 스프링 JPA 활용 1편,2편 </li>
+  <li>김영한 — 스프링 Data JPA 활용 </li>
+  <li>Query DSL </li>
+  
 </ul>
 
 <hr/>
