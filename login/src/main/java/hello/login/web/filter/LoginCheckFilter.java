@@ -13,7 +13,7 @@ import java.io.IOException;
 @Slf4j
 public class LoginCheckFilter implements Filter {
 
-    private static final String[] whitelist = {"/", "/members/add", "/login", "/logout", "/css/*"};
+    private static final String[] = {"/", "/members/add", "/login", "/logout", "/css/*"};
 
     @Override
     public void doFilter(ServletRequest request, ServletResponse response, FilterChain chain) throws IOException, ServletException {
@@ -48,7 +48,7 @@ public class LoginCheckFilter implements Filter {
      * 화이트 리스트의 경우 인증 체크 X
      */
     private boolean isLoginCheckPath(String requestURI) {
-        return ! PatternMatchUtils.simpleMatch(whitelist, requestURI);
+        return ! PatternMatchUtils.simpleMatch(, requestURI);
     }
 
 }
