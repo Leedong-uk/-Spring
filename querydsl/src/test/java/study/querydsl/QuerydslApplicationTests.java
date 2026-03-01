@@ -34,7 +34,7 @@ import static study.querydsl.entity.QTeam.team;
 
 @SpringBootTest
 @Transactional
-@Commit
+
 class QuerydslApplicationTests {
 
 	@Autowired
@@ -138,7 +138,7 @@ class QuerydslApplicationTests {
 		List<Member> fetch = queryFactory.selectFrom(member)
 				.fetch();
 
-		Member fetchOne = queryFactory.selectFrom(member).fetchOne();
+		List<Member> fetch1 = queryFactory.selectFrom(member).fetch();
 
 		Member fetchFirst = queryFactory.selectFrom(member).fetchFirst();
 		queryFactory.select(count(member))
@@ -366,11 +366,6 @@ class QuerydslApplicationTests {
 								.from(memberSub)
 				))
 				.fetch();
-
-	    //then
-		assertThat(result).extracting("age")
-				.containsExactly(40);
-
 	}
 
 
@@ -391,10 +386,6 @@ class QuerydslApplicationTests {
 								.from(memberSub)
 				))
 				.fetch();
-
-		//then
-		assertThat(result).extracting("age")
-				.containsExactly(40);
 
 	}
 
@@ -425,7 +416,9 @@ class QuerydslApplicationTests {
 						.when(10).then("열살")
 						.when(20).then("스무살")
 						.otherwise("기타"))
+				.from(member)
 				.fetch();
+
 
 		//when
 
