@@ -22,7 +22,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
 import study.querydsl.dto.MemberDto;
+import study.querydsl.dto.MemberSearchCondition;
+import study.querydsl.dto.MemberTeamDto;
 import study.querydsl.entity.*;
+import study.querydsl.repository.MemberJpaRepository;
 
 import java.util.List;
 
@@ -42,6 +45,8 @@ class QuerydslApplicationTests {
 
 
 	JPAQueryFactory queryFactory;
+    @Autowired
+    private MemberJpaRepository memberJpaRepository;
 
 	@Test
 	void contextLoads() {
@@ -67,8 +72,8 @@ class QuerydslApplicationTests {
 		Member member1 = new Member("member1", 10, teamA);
 		Member member2 = new Member("member2", 10, teamA);
 
-		Member member3 = new Member("member2", 10, teamB);
-		Member member4 = new Member("member2", 10, teamB);
+		Member member3 = new Member("member3", 30, teamB);
+		Member member4 = new Member("member4", 40, teamB);
 
 		em.persist(member1);
 		em.persist(member2);
@@ -665,6 +670,24 @@ class QuerydslApplicationTests {
 	    //then
 
 	}
+
+	@Test
+	@DisplayName("searchTest")
+	void searchTest() throws Exception{
+	    //given
+		MemberSearchCondition condition = new MemberSearchCondition();
+		condition.setAgeGoe(35);
+		condition.setAgeLoe(40);
+		condition.setTeamName("teamB");
+
+
+		//when
+		List<MemberTeamDto> result = memberJpaRepository.search(condition);
+
+	    //then
+		assertThat(result).extracting("username").containsExactly("member4");
+
+	  }
 
 	
 
