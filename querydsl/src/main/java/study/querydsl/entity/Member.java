@@ -4,14 +4,13 @@ import jakarta.persistence.*;
 import lombok.*;
 
 @Entity
-@Getter
-@Setter
+@Getter @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@ToString(of = {"id","username","age"})
+@ToString(of = {"id", "username", "age"})
 public class Member {
     @Id
     @GeneratedValue
-    @Column(name="member_id")
+    @Column(name = "member_id")
     private Long id;
     private String username;
     private int age;
@@ -20,25 +19,24 @@ public class Member {
     @JoinColumn(name = "team_id")
     private Team team;
 
-    public Member(int age, Team team) {
+    public Member(String username) {
+        this(username, 0);
+    }
+
+    public Member(String username, int age) {
+        this(username, age, null);
+    }
+
+    public Member(String username, int age, Team team) {
+        this.username = username;
         this.age = age;
-        this.team = team;
         if (team != null) {
             changeTeam(team);
         }
     }
 
-    private void changeTeam(Team team) {
-        this.team= team;
+    public void changeTeam(Team team) {
+        this.team = team;
         team.getMembers().add(this);
-    }
-
-    public Member(String username, int age) {
-        this.username = username;
-        this.age = age;
-    }
-
-    public Member(String username) {
-        this(username, 0);
     }
 }
