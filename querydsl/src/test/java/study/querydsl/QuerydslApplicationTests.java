@@ -1,6 +1,10 @@
 package study.querydsl;
 
+import com.querydsl.core.BooleanBuilder;
 import com.querydsl.core.Tuple;
+import com.querydsl.core.types.Predicate;
+import com.querydsl.core.types.Projections;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.jpa.JPAExpressions;
 import com.querydsl.jpa.impl.JPAQueryFactory;
@@ -17,6 +21,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Commit;
+import study.querydsl.dto.MemberDto;
 import study.querydsl.entity.*;
 
 import java.util.List;
@@ -456,7 +461,220 @@ class QuerydslApplicationTests {
 			System.out.println("s = " + s);
 		}
 	}
+
+	@Test
+	@DisplayName("simpleProjection")
+	void simpleProjection() throws Exception {
+	    //given
+		List<String> result = queryFactory.select(member.username)
+				.from(member)
+				.fetch();
+	}
+	
+	@Test
+	@DisplayName("tuplePorjection")
+	void tuplePorjection() throws Exception {
+	    //given
+		List<Tuple> result = queryFactory.select(member.username, member.age)
+				.from(member)
+				.fetch();
+
+		for (Tuple tuple : result) {
+			String username = tuple.get(member.username);
+			Integer age = tuple.get(member.age);
+		}
+	}
+
+	@Test
+	@DisplayName("findDtoBySetter")
+	void findDtoBySetter() throws Exception {
+	    //given
+		List<MemberDto> result = queryFactory.select(Projections.bean(MemberDto.class,
+						member.username,
+						member.age))
+				.from(member)
+				.fetch();
+
+	}
+
+	@Test
+	@DisplayName("findDtoByField")
+	void findDtoByField() throws Exception {
+	    //given
+		queryFactory.select(Projections.fields(MemberDto.class,
+						member.username,
+						member.age))
+				.from(member);
+
+
+	}
+
+	@Test
+	@DisplayName("findDtoByConstructor")
+	void findDtoByConstructor() throws Exception {
+		//given
+		List<MemberDto> result = queryFactory.select(Projections.constructor(MemberDto.class,
+						member.username,
+						member.age))
+				.from(member)
+				.fetch();
+
+	}
+
+
+	@Test
+	@DisplayName("findDto")
+	void findDto() throws Exception {
+		//given
+		List<MemberDto> result = queryFactory.select(Projections.fields(MemberDto.class,
+						member.username.as("name"),
+						member.age))
+				.from(member)
+				.fetch();
+
+	}
+
+	@Test
+	@DisplayName("dynamicQuery_BooleanBuilder")
+	void dynamicQueryBooleanBuilder() throws Exception {
+	    //given
+		String usernameParam = "member1";
+		Integer ageParam = 10;
+
+		List<Member> result = searchMember1(usernameParam,ageParam);
+
+
+	    //when
+
+
+	    //then
+
+	}
+
+    private List<Member> searchMember1(String usernameCond, Integer ageCond) {
+		BooleanBuilder builder = new BooleanBuilder();
+		if (usernameCond != null) {
+			builder.and(member.username.eq(usernameCond));
+		}
+
+		if (ageCond != null) {
+			builder.and(member.age.eq(ageCond));
+		}
+
+
+
+		return queryFactory
+				.selectFrom(member)
+				.where(builder)
+				.fetch();
+    }
+
+	@Test
+	@DisplayName("dynamicQuery_WhereParam")
+	void dynamicQueryWhereParam() throws Exception {
+	    //given
+		String usernameParam = "member1";
+		Integer ageParam = 10;
+
+		List<Member> result = searchMember2(usernameParam,ageParam);
+
+
+		//when
+
+
+	    //then
+
+	}
+
+    private List<Member> searchMember2(String usernameCond, Integer ageCond) {
+		return queryFactory
+				.selectFrom(member)
+				.where(allEq(usernameCond,ageCond))
+				.fetch();
+    }
+
+	private BooleanExpression usernameEq(String usernameCond) {
+		if (usernameCond == null) {
+			return null;
+		}
+		return member.username.eq(usernameCond);
+    }
+
+	private BooleanExpression ageEq(Integer ageCond) {
+		if(ageCond == null)
+			return null;
+		return member.age.eq(ageCond);
+	}
+
+	private BooleanExpression allEq(String usernameCond, Integer ageCond) {
+		return usernameEq(usernameCond).and(ageEq(ageCond));
+	}
+	
+	@Test
+	@DisplayName("bulkUpdate")
+	void bulkUpdate() throws Exception {
+	    //given
+		long count = queryFactory.update(member)
+				.set(member.username, "비회원")
+				.where(member.age.lt(28))
+				.execute();
+
+	    
+	}
+
+	@Test
+	@DisplayName("bulkAdd")
+	void bulkAdd() throws Exception {
+	    //given
+		queryFactory.update(member)
+				.set(member.age, member.age.add(1))
+				.execute();
+	}
+	
+	@Test
+	@DisplayName("bulkMultiply")
+	void bulkMultiply() throws Exception {
+	    //given
+		queryFactory.update(member)
+				.set(member.age, member.age.multiply(2))
+				.execute();
+		
+	}
+	
+	@Test
+	@DisplayName("bulkDelete")
+	void bulkDelete() throws Exception {
+	    //given
+		queryFactory.delete(member)
+				.where(member.age.gt(18))
+				.execute();
+	            
+	    //when
+	
+	    
+	    //then
+	    
+	}
+
+	@Test
+	@DisplayName("sqlFunction")
+	void sqlFunction() throws Exception {
+	    //given
+		String result = queryFactory
+				.select(Expressions.stringTemplate("function('replace', {0}, {1}, {2})",
+						member.username, "member", "M"))
+				.from(member)
+				.fetchFirst();
+
+	    //when
+
+
+	    //then
+
+	}
+
 	
 
+	
 
 }
